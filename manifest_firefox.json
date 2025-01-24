@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Focus Wizard",
+  "version": "1.0",
+  "description": "Allows for easier focusing of web page input boxes",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["libs/browser-polyfill.js", "src/focus.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["libs/browser-polyfill.js", "src/background.js"]
+  },
+  "commands": {
+    "focus-searchbox": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Focus search box"
+    }
+  }
+}
