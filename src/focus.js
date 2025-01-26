@@ -3,7 +3,6 @@ let pressCount;
 
 browser.runtime.sendMessage({ method: "getUrlTable" }).then((response) => {
   let urlTable = response.urlTable;
-  console.log(urlTable);
 
   browser.runtime.onMessage.addListener((request) => {
     if (request.method === "focusInput") {
@@ -18,20 +17,18 @@ browser.runtime.sendMessage({ method: "getUrlTable" }).then((response) => {
         if (sinceLastPress > 3000) {
           if (isInUrlTable) {
             pressCount = urlTable[urlBase];
-            console.log("urlbase in storage, pressCount: ", String(pressCount));
-            focusElement(inputBoxArray[pressCount % nFields]);
+            focusElement(inputBoxArray[pressCount]);
           } else {
             pressCount = 0;
-            focusElement(inputBoxArray[pressCount % nFields]);
+            focusElement(inputBoxArray[pressCount]);
           }
         } else {
           pressCount++;
-          focusElement(inputBoxArray[pressCount % nFields]);
-          storePressCount(pressCount % nFields);
-          console.log("stored presscount of ", String(pressCount % nFields));
+          let inputOrder = pressCount % nFields;
+          focusElement(inputBoxArray[inputOrder]);
+          storePressCount(inputOrder);
         }
 
-        console.log(pressCount);
         lastPress = Date.now();
       }
     }
@@ -73,10 +70,6 @@ function focusElement(element) {
   try {
     if (element && typeof element.focus === "function") {
       element.focus();
-    } else {
-      console.log("Element is not focusable:", element);
     }
-  } catch (error) {
-    console.error("error attempting to focus input element");
-  }
+  } catch (error) {}
 }
