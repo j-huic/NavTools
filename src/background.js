@@ -2,7 +2,7 @@ import "../libs/browser-polyfill.js";
 
 browser.commands.onCommand.addListener(async (command) => {
   if (command === "focus-searchbox") {
-    browser.storage.sync.get("urlTable").then((storage) => {
+    browser.storage.local.get("urlTable").then((storage) => {
       browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
         browser.tabs.sendMessage(tabs[0].id, {
           method: "focusInput",
@@ -23,17 +23,17 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function sendUrlTable(sendResponse) {
-  browser.storage.sync
+  browser.storage.local
     .get("urlTable")
     .then((storage) => sendResponse({ urlTable: storage.urlTable || {} }));
 }
 
 function updateUrlTable(request) {
   if (Number.isInteger(request.pressCount)) {
-    browser.storage.sync.get("urlTable").then((storage) => {
+    browser.storage.local.get("urlTable").then((storage) => {
       let newUrlTable = storage["urlTable"] || {};
       newUrlTable[request.urlBase] = request.pressCount;
-      browser.storage.sync.set({ urlTable: newUrlTable });
+      browser.storage.local.set({ urlTable: newUrlTable });
       console.log(
         "urlTable updated for, ",
         request.urlBase,
