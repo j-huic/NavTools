@@ -3,7 +3,7 @@
   "name": "NavTools",
   "version": "1.0",
   "description": "Allows for easier focusing of web page input boxes",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
