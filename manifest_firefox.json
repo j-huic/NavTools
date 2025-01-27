@@ -11,7 +11,8 @@
     }
   ],
   "background": {
-    "scripts": ["libs/browser-polyfill.js", "src/background.js"]
+    "scripts": ["libs/browser-polyfill.js", "src/background.js"],
+    "type": "module"
   },
   "commands": {
     "focus-searchbox": {
