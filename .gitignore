@@ -1,3 +1,6 @@
 package-lock.json
 plan.txt
 bs/
+.DS_Store
+*.txt
+build*
