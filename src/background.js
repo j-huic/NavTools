@@ -34,12 +34,6 @@ function updateUrlTable(request) {
       let newUrlTable = storage["urlTable"] || {};
       newUrlTable[request.urlBase] = request.pressCount;
       browser.storage.local.set({ urlTable: newUrlTable });
-      console.log(
-        "urlTable updated for, ",
-        request.urlBase,
-        ": ",
-        request.pressCount
-      );
     });
   }
 }
