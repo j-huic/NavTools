@@ -4,6 +4,13 @@
   "version": "1.0",
   "description": "Allows for easier focusing of web page input boxes",
   "permissions": ["activeTab", "storage"],
+  "icons": {
+    "16": "assets/compassthing_cropped2_16.png",
+    "32": "assets/compassthing_cropped2_32.png",
+    "48": "assets/compassthing_cropped2_48.png",
+    "64": "assets/compassthing_cropped2_64.png",
+    "128": "assets/compassthing_cropped2_128.png"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
