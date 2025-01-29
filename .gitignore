@@ -4,3 +4,4 @@ bs/
 .DS_Store
 *.txt
 build*
+rawassets
