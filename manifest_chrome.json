@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "NavTools",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Adds a keyboard shortcut to focus web page input boxes",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage", "tabs"],
   "icons": {
     "16": "assets/compassthing_cropped2_16.png",
     "32": "assets/compassthing_cropped2_32.png",
@@ -15,6 +15,10 @@
     {
       "matches": ["<all_urls>"],
       "js": ["libs/browser-polyfill.js", "src/focus.js"]
+    },
+    {
+      "matches": ["*://google.com/*", "*://www.google.com/search*"],
+      "js": ["libs/browser-polyfill.js", "src/googleNav.js"]
     }
   ],
   "background": {
@@ -27,6 +31,24 @@
         "default": "Ctrl+Shift+L"
       },
       "description": "Focus search box"
+    },
+    "click-card-1": {
+      "suggested_key": {
+        "default": "Alt+Shift+1"
+      },
+      "description": "Open first Google search result"
+    },
+    "click-card-2": {
+      "suggested_key": {
+        "default": "Alt+Shift+2"
+      },
+      "description": "Open first Google search result"
+    },
+    "click-card-3": {
+      "suggested_key": {
+        "default": "Alt+Shift+3"
+      },
+      "description": "Open first Google search result"
     }
   }
 }
