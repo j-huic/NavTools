@@ -1,6 +1,7 @@
 import "../libs/browser-polyfill.js";
 
 browser.commands.onCommand.addListener(async (command) => {
+  console.log(command);
   if (command === "focus-searchbox") {
     browser.storage.local.get("urlTable").then((storage) => {
       browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
@@ -9,6 +10,15 @@ browser.commands.onCommand.addListener(async (command) => {
           urlTable: storage.urlTable,
         });
       });
+    });
+  } else if (command.includes("click-card")) {
+    console.log("msg out");
+    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+      browser.tabs.sendMessage(tabs[0].id, {
+        method: "clickCard",
+        index: parseInt(command.slice(-1)) - 1,
+      });
+      console.log(command.slice(-1));
     });
   }
 });
@@ -19,6 +29,8 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.method === "getUrlTable") {
     sendUrlTable(sendResponse);
     return true;
+  } else if (request.method === "openTab") {
+    browser.tabs.create({ url: request.url });
   }
 });
 
