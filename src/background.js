@@ -5,19 +5,23 @@ browser.commands.onCommand.addListener(async (command) => {
   if (command === "focus-searchbox") {
     browser.storage.local.get("urlTable").then((storage) => {
       browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        browser.tabs.sendMessage(tabs[0].id, {
-          method: "focusInput",
-          urlTable: storage.urlTable,
-        });
+        browser.tabs
+          .sendMessage(tabs[0].id, {
+            method: "focusInput",
+            urlTable: storage.urlTable,
+          })
+          .catch(() => {});
       });
     });
   } else if (command.includes("click-card")) {
     console.log("msg out");
     browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-      browser.tabs.sendMessage(tabs[0].id, {
-        method: "clickCard",
-        index: parseInt(command.slice(-1)) - 1,
-      });
+      browser.tabs
+        .sendMessage(tabs[0].id, {
+          method: "clickCard",
+          index: parseInt(command.slice(-1)) - 1,
+        })
+        .catch(() => {});
       console.log(command.slice(-1));
     });
   }
